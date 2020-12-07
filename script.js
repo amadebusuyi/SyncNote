@@ -420,6 +420,7 @@ function displayNote(id){
     		}
             // data-masonry='{ "itemSelector": ".custom-note"}' 
     		$("#noteViewer").html(`
+                <h2 class="ml-2">Notes</h2>
                 <div class="notes" id="displayNotes">
                     ${showNote}
                 </div>
@@ -440,7 +441,7 @@ function displayNote(id){
 		    			<p class="mt-5 text-center"> You have not added any notes yet</p>
 		    		</div>
 					<div class="col-12 d-flex justify-content-center">
-		    			<button class="mt-3 btn btn-secondary" onclick="createNote()"> Add a new note</button>
+		    			<button class="mt-3 btn btn-yellow" onclick="createNote()"> Add a new note</button>
 		    		</div>
 		    	</div>
     			`);
@@ -463,7 +464,7 @@ function displayNote(id){
                 }
                 showNote = `
                 <div class="custom-note">
-                    <div class="note-display" data-id="${notes[i].id}">
+                    <div class="note-display" onclick="displayNote('${notes[i].id}')" data-id="${notes[i].id}">
                         ${title}
                         ${desc}
                     </div>
@@ -472,15 +473,16 @@ function displayNote(id){
             }
             // data-masonry='{ "itemSelector": ".custom-note"}' 
             $("#binViewer").html(`
+                <h2 class="ml-2">Deleted Notes</h2>
                 <div class="notes" id="displayBinNotes">
                     ${showNote}
                 </div>
             `);
-            // setTimeout(()=>{
-            //     $(".notes").masonry({ 
-            //       itemSelector: '.custom-note'
-            //     });
-            // }, 200);
+            setTimeout(()=>{
+                $(".notes").masonry({ 
+                  itemSelector: '.custom-note'
+                });
+            }, 200);
         }
         else{
             $("#binViewer").html(`
@@ -493,7 +495,7 @@ function displayNote(id){
                         <small>Deleted notes appear here and can be retrieved or deleted permanently</small></p>
                     </div>
                     <div class="col-12 d-flex justify-content-center">
-                        <button class="mt-3 btn btn-secondary" onclick="createNote()"> Add a new note</button>
+                        <button class="mt-3 btn btn-yellow" onclick="createNote()"> Add a new note</button>
                     </div>
                 </div>
                 `);

@@ -159,7 +159,7 @@ body{
     width: 200px;
 }
 
-#noteViewer .custom-note{
+#noteViewer .custom-note, #binViewer .custom-note{
     width: 50%;
     float: left;
     height: auto;
@@ -184,7 +184,7 @@ body{
     #noteViewer{
         padding: 3px;
     }
-    #noteViewer .custom-note{
+    #noteViewer .custom-note, #binViewer .custom-note{
         padding: 5px 3px;
     }
 }

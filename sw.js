@@ -1,10 +1,11 @@
-const staticSyncNote = "sync-note-365-dev-v4"
+const v = "?v0.03";
+const staticSyncNote = "sync-note-365-dev-"+v
 const assets = [
   "/",
-  "/index.html",
-  "/app.html",
-  "style.css",
-  "script.js",
+  "/index.html"+v,
+  "/app.html"+v,
+  "style.css"+v,
+  "script.js"+v,
   "empty.png",
   "icon.png",
   "icon.png128",
