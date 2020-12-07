@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SyncNote</title>
+	<link rel="manifest" href="manifest.json?v5" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  	<link rel="icon" href="icon.png" type="image/png">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<!-- Google Fonts --> 
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+	<!-- Bootstrap core CSS -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Material Design Bootstrap -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+	<!-- Animate CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css?v5">
+</head>
+<body>
+
+	<div class="container mt-3">
+		<div class="row">
+			<div class="col-7">
+				<h4 style="float: left"><i class="menu-toggle fa fa-bars" style="font-size: 22px"></i>&nbsp;SyncNote</h4>
+			</div>
+			<div class="col-5 text-right header-btns">
+				<span style="float: right;" class="user-image btn btn-primary viewSettings">
+					<i class="fa fa-user"></i>
+				</span>
+				<button style="position: relative; float: right; margin-top: 0; width: 36px; height: 36px; border-radius: 50%" class="btn btn-yellow createNew">
+					<i style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%" class="fa fa-plus"></i>
+				</button>
+				<!-- <button style="float: right" class="btn btn-yellow viewSettings">
+					<i class="fa fa-cog"></i>
+				</button> -->
+			</div>
+		</div>
+		<div class="row animate__animated animate_faster d-none navMenu p-3">
+			<ul>
+				<li><a href="#show-notes" class="viewNotes"><i class="fa fa-eye"></i> &nbsp;Notes</a></li>
+				<li><a href="#create-new" class="createNew"><i class="fa fa-plus"></i> &nbsp;Add note</a></li>
+				<li><a href="#auth" class="viewSettings"><i class="fa fa-cog"></i> &nbsp;Settings</a></li>
+				<li><a href="#recycle-bin" class="viewBin"><i class="fa fa-recycle"></i> &nbsp;Bin</a></li>
+			</ul>
+		</div>
+			
+	</div>
+
+<!-- 	<div class="floating-btn d-sm-none" style="position: fixed; bottom: 20px; right: 5%; z-index: 20">
+		<button class="btn btn-yellow createNew" style="position: relative; width: 50px; height: 50px; box-shadow: 3px 3px 6px #666; border-radius: 50%">
+			<i class="fa fa-plus fa-2x"></i>
+		</button>
+	</div> -->
+
+	<div class="container to-hide mt-4 d-none" id="noteMaker">
+		<div class="row">
+			<div class="col-12">
+				<input type="text" id="title" class="form-control" style="height: 50px" placeholder="Enter title">
+			</div>
+			<div class="col-12 mt-3">
+				<div id="noteTaker" class="summerNote"></div>
+			</div>
+			<div class="mt-4 col-12 text-center">
+				<button class="btn btn-primary" id="addNote"> ADD NOTE + </button>
+			</div>
+		</div>
+			
+	</div>
+
+	<div class="container to-hide mt-4 d-none" id="noteEditor">
+		<div class="row">
+			<span class="d-none note-id"></span>
+			<div class="col-12">
+				<input type="text" id="update-title" class="form-control" style="height: 50px" placeholder="Enter title">
+			</div>
+			<div class="col-12 mt-3">
+				<div id="noteModifier" class="summerNote"></div>
+			</div>
+			<div class="mt-4 col-12 text-center">
+				<button class="btn btn-primary" id="updateNote"> Update Note + </button>
+			</div>
+		</div>
+			
+	</div>
+
+	<div class="container to-hide mt-4" id="noteViewer">
+		
+	</div>
+
+	<div class="container to-hide mt-4" id="binViewer">
+		
+	</div>
+
+	<div class="container to-hide d-none" id="chatLoader">
+		<div class="row" id="displayChats">
+			
+		</div>
+		<div class="row" style="position: relative; height: 82vh">
+			<div class="col-12" style="position: absolute; bottom: 20px; width: 100%">
+				<input type="text" id="chat" placeholder="Enter your message here" style="width: 100%" class="form-control">
+			</div>
+		</div>
+	</div>
+
+	<div class="container to-hide mt-4 d-none" id="fullNote">
+		<div class="row p-3">
+			<div class="col-12 text-right" style="padding-right: 0px">
+				<button class="btn btn-info btn-sm editNote" data-id style="padding: 5px 10px">
+					<i class="fa fa-edit"></i>
+				</button>
+				<button class="btn btn-danger btn-sm deleteNote" data-id style="padding: 5px 10px">
+					<i class="fa fa-trash"></i>
+				</button>
+			</div>
+			<div class="note-area">
+
+			</div>
+		</div>
+	</div>
+
+	<div class="container to-hide mt-4 d-none" id="settings">
+		<div class="row">
+			<div class="col-12">
+				<h5>Never lose your notes ever again!</h5>
+				<p><small class="color-light">With SyncNote, it is easy to recover your notes across different devices. All you have to do is link your Google Account</small></p>
+			</div>
+			<div class="d-none logged-as p-3" style="width: 100%">
+				
+			</div>
+			<div class="col-12 authstate logged d-none">
+				<p style="color: brown"><small>When you logout, your notes will be removed until you login again</small></p>
+				<button class="btn btn-danger btn-sm unlink-account">Logout</button>
+			</div>
+			<div class="col-12 authstate not-logged d-none">
+				<button class="btn btn-outline-dark link-account" style="text-transform:none; color: #fbfbfb !important">
+			      <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+			      Continue with Google
+			    </button>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col-12">
+				<h4>About App</h4>
+			</div>
+			<div class="col-12">
+				<p>App built by Adebowale Adebusuyi</p>
+				<p><small>I wanted a notepad that will backup my notes in the cloud, that I can use on multiple devices and that is quite straight forward, so I built this. I intend to maintain SyncNote on weekends and will constantly notify you of coming changes. The app is free to use and will always be. Thanks</small></p>
+			</div>
+			<div class="col-12 header-btns mb-5">
+				<a href="https://instagram.com/amadebusuyi" target="_blank">
+					<i style="color: #fafafa; font-size: 24px" class="fab fa-instagram"></i>
+				</a>
+				<a href="https://twitter.com/amadebusuyi" class="ml-3">
+					<i style="color: #fafafa; font-size: 24px" class="fab fa-twitter"></i>
+				</a>
+				<a href="https://github.com/amadebusuyi" class="ml-3">
+					<i style="color: #fafafa; font-size: 24px" class="fab fa-github"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="notification-log text-center">
+
+	</div>
+
+
+<!-- SCRIPTS GOES HERE -->
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+<!-- FIREBASE INIT -->
+<script src="/__/firebase/8.1.1/firebase-app.js"></script>
+<script src="/__/firebase/8.1.1/firebase-database.js"></script>
+<script src="/__/firebase/8.1.1/firebase-auth.js"></script>
+<!-- Initialize Firebase -->
+<script src="/__/firebase/init.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="script.js?v10"></script>
+<script type="text/javascript">
+	$(".summerNote").summernote({
+ 		placeholder: 'Enter note here...',
+ 		tabsize: 2,
+        height: 450,
+        toolbar: [
+          // ['style', ['style']],
+          // ['font', ['bold', 'underline']],
+          // ['para', ['ul', 'ol']]
+        ]
+	});
+
+	// $("#noteModifier").summernote({
+ // 		placeholder: 'Enter note here...',
+ // 		tabsize: 2,
+ //        height: 450,
+ //        toolbar: [
+ //          // ['style', ['style']],
+ //          // ['font', ['bold', 'underline']],
+ //          ['para', ['ul', 'ol']]
+ //        ]
+	// });
+
+	if ("serviceWorker" in navigator) {
+	  window.addEventListener("load", function() {
+	    navigator.serviceWorker
+	      .register("/sw.js")
+	      .then(res => console.log("service worker registered"))
+	      .catch(err => console.log("service worker not registered", err))
+	  })
+	}
+
+</script>
+</body>
+</html>

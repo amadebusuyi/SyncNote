@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SyncNote</title>
+	<link rel="manifest" href="manifest.json?v5" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  	<link rel="icon" href="icon.png" type="image/png">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<!-- Google Fonts --> 
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+	<!-- Bootstrap core CSS -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Material Design Bootstrap -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+	<!-- Animate CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css?v5">
+</head>
+<body>
+
+	<div class="container mt-3">
+		<div class="row">
+			<div class="col-6">
+				<h2>SyncNote</h2>
+			</div>
+			<div class="col-6 text-right header-btns">
+				<a href="https://instagram.com/amadebusuyi" class="ml-3" target="_blank" style="float: right">
+					<i style="color: #fafafa; font-size: 24px" class="fab fa-instagram"></i>
+				</a>
+				<a href="https://twitter.com/amadebusuyi" class="ml-3" style="float: right">
+					<i style="color: #fafafa; font-size: 24px" class="fab fa-twitter"></i>
+				</a>
+				<a href="https://github.com/amadebusuyi" style="float: right">
+					<i style="color: #fafafa; font-size: 24px" class="fab fa-github"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="container mt-5 pb-5">
+		<h1 style="color: var(--lighter); text-transform: capitalize; font-weight: bold">The notepad that keeps your notes</h1>
+		<h6 style="color: #ddd" class="mt-4"> SyncNote saves user note in the cloud and synchronizes it on all their devices. It can be accessed on the web and also as desktop and mobile app with it's progressive web app feature</h6>
+		<p><a href="app.html" style="background: #e7d823; color: var(--dark)">Open app on web</a></p>
+	</div>
+
+	<div class="container mt-5 py-5 px-4" style="background: #e7d823">
+		<h3 style="color: #333">Available features</h3>
+		<ul style="color: var(--dark); padding-left: 20px">
+			<li>Create, view, update and delete notes</li>
+			<li>Install as mobile and desktop as a progressive web app</li>
+			<li>Create an account seamlessly in a matter of seconds by simply linking your google account (optional).</li>
+			<li>After initial install, internet is not required for subsequent usage.</li>
+			<li>Synchronizes your data across your devices provided you've created account.</li>
+		</ul>
+		<div class="mt-5" style="background: var(--light); padding: 10px 15px; border-radius: 5px;">
+			<h4 style="color: #333;">And some more features on the way</h4>
+			<ul style="color: var(--dark); padding-left: 20px">
+				<li>Auto generated note sharing link</li>
+				<li>Recycle bin</li>
+				<li>Draggable notes</li>
+				<li>Themes</li>
+				<li>Reminders</li>
+				<li>Collaboration</li>
+				<li>Etc... </li>
+				<p>NB: not in any particular order</p>
+			</ul>
+		</div>
+		
+	</div>
+
+	<div class="container mt-5 py-5">
+		<h2>How To Install</h2>
+		<p><small>* Use Chrome or Edge browsers on desktop</small></p>
+		<p>On Desktop: Press the plus icon on the right corner of your browser's address bar</p>
+		<p>On mobile click on your browser's menu and select add to homescreen</p>
+		<p>Hurray! That's all it takes to have SyncNote on all your devices.</p>
+		<h4 class="mt-5"><span style="background: #e7d823; color: var(--dark)">&nbsp;Happy note taking!&nbsp;</span></h4>
+		<p></p>
+	</div>
+
+
+<!-- SCRIPTS GOES HERE -->
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
+<script type="text/javascript">
+	if ("serviceWorker" in navigator) {
+	  window.addEventListener("load", function() {
+	    navigator.serviceWorker
+	      .register("/sw.js")
+	      .then(res => console.log("service worker registered"))
+	      .catch(err => console.log("service worker not registered", err))
+	  })
+	}
+
+</script>
+</body>
+</html>
