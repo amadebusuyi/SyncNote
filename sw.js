@@ -1,4 +1,4 @@
-const v = "?v0.03";
+const v = "?v0.05";
 const staticSyncNote = "sync-note-365-dev-"+v
 const assets = [
   "/",

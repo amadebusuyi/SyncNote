@@ -99,7 +99,7 @@ body{
     }
 }
 
-@media(max-width: 360px){
+@media(max-width: 320px){
     .navMenu{
         width: 200px;
     }
@@ -235,4 +235,31 @@ body{
     padding: 10px 20px;
     background: #444;
     border-radius: 25px;
+}
+
+/*ALERT CSS CONFIG*/
+
+.body-overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+}
+
+.custom-alert{
+    position: fixed;
+    z-index: 201;
+    height: auto;
+    width: auto;
+    max-width: 80%;
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 5px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--light);
 }

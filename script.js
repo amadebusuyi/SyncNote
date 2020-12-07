@@ -1,3 +1,13 @@
+var UID = localStorage.syncNoteUID;
+
+var tmpNotes = localStorage.tmpNotes;
+if(tmpNotes){
+    tmpNotes = JSON.parse(tmpNotes);
+}
+else{
+    localStorage.tmpNotes = JSON.stringify([]);
+    tmpNotes = [];
+}
 
 function createNote (){
 	$(".createNew").click();
@@ -79,6 +89,18 @@ function checkLoc(location){
 var online = () => {
     let status = navigator.onLine;
     return status;
+}
+
+var notify = (text, delay = 0.1, timeout = 5) => {
+    var showNotification = () =>{
+        $(".notification-log").html(`<span>${text}</span>`);
+        setTimeout(function() {
+            $(".notification-log").empty();
+        }, timeout * 1000);
+    }
+    
+    setTimeout(showNotification, delay * 1000);
+
 }
 
 var linkAccount = () => {
@@ -216,6 +238,102 @@ function displayNote(id){
     showNote(id);
 }
 
+function customAlert(elem){
+    $("body").append(`
+        <div class='body-overlay' onclick="closeAlert()">
+        </div>
+        <div class="custom-alert px-3 py-2">
+            ${elem}
+        </div>
+        `);
+}
+
+// CUSTOM ALERT CONFIGS
+function closeAlert(){
+    $(".custom-alert").empty().hide();
+    $(".body-overlay").hide();
+}
+
+function binReview(id){
+    let html = `
+    <ul style="list-style: none; padding: 0">
+        <li style="cursor: pointer" class="mt-3" onclick="restoreNote('${id}')">Restore</li>
+        <li style="cursor: pointer" class="mt-3" onclick="permanentDelete('${id}')">Delete forever</li>
+    </ul>`;
+    customAlert(html);
+}
+
+var restoreNote = (id) =>{
+    let notes = binNotes();
+    let note = notes.find(item => item.id == id);
+    if(note){
+        delete note.id;
+        delete note.deleted;
+        updateNote(id, note);
+        closeAlert();
+    }
+    else{
+        closeAlert();
+        notify("Not found, drag page down to refresh");
+    }
+}
+
+var permanentDelete = (id) =>{
+    let notes = binNotes();
+    let note = notes.find(item => item.id == id);
+    if(note){
+        if(note.temp){
+            $.each(tmpNotes, (i, item)=>{
+                if(item.id == id){
+                    tmpNotes.splice(i, 1);
+                    localStorage.tmpNotes = JSON.stringify(tmpNotes);
+                }
+            })
+            closeAlert();
+            notify("Note deleted permanently");
+        }
+        else{
+            firebase.database().ref('userNotes/'+UID+'/' + id).remove()
+            .then(()=>{
+                closeAlert();
+                notify("Note deleted permanently");
+                location.reload();
+            });
+        }
+    }
+    else{
+        notify("Not found, drag page down to refresh");
+        closeAlert();
+    }
+}
+
+
+var updateNote = (id, note) => {
+    if(!online() || !UID){
+        note.id = id;
+        $.each(tmpNotes, (i, item)=>{
+            if(item.id == note.id);
+                tmpNotes.splice(i, 1);
+        })
+        note.state = "update";
+        tmpNotes.push(note);
+        localStorage.tmpNotes = JSON.stringify(tmpNotes);
+    }
+    else{
+        firebase.database().ref('userNotes/'+UID+'/' + id).set(note,
+        function(error){
+        if(error){
+            console.log("An error prevented saving note");
+        }
+        else{
+            $(".viewNotes").click();
+        }
+    })
+    }
+    notify("You updated note!");
+}
+
+
 (function($) {
     'use strict'
 
@@ -224,15 +342,7 @@ function displayNote(id){
         });
 
     var activePage = "show-notes";
-    var UID = localStorage.syncNoteUID;
-    var tmpNotes = localStorage.tmpNotes;
-    if(tmpNotes){
-        tmpNotes = JSON.parse(tmpNotes);
-    }
-    else{
-        localStorage.tmpNotes = JSON.stringify([]);
-        tmpNotes = [];
-    }
+
 
     $(".createNew").click(function(e){
     	e.preventDefault();
@@ -322,6 +432,7 @@ function displayNote(id){
         if(!online() || !UID){
             note.id = makeRand(16, "all");
             note.state = "add";
+            note.temp = true;
             tmpNotes.push(note);
             localStorage.tmpNotes = JSON.stringify(tmpNotes);
         }
@@ -336,30 +447,6 @@ function displayNote(id){
         } 
     }
 
-    var updateNote = (id, note) => {
-        if(!online() || !UID){
-            note.id = id;
-            $.each(tmpNotes, (i, item)=>{
-                if(item.id == note.id);
-                    tmpNotes.splice(i, 1);
-            })
-            note.state = "update";
-            tmpNotes.push(note);
-            localStorage.tmpNotes = JSON.stringify(tmpNotes);
-        }
-        else{
-            firebase.database().ref('userNotes/'+UID+'/' + id).set(note,
-            function(error){
-            if(error){
-                console.log("An error prevented saving note");
-            }
-            else{
-                $(".viewNotes").click();
-            }
-        })
-        }
-        notify("You updated note!");
-    }
 
     var deleteNote = (id) => {
         let notes = harmonizeNotes();
@@ -464,7 +551,7 @@ function displayNote(id){
                 }
                 showNote = `
                 <div class="custom-note">
-                    <div class="note-display" onclick="displayNote('${notes[i].id}')" data-id="${notes[i].id}">
+                    <div class="note-display" onclick="binReview('${notes[i].id}')" data-id="${notes[i].id}">
                         ${title}
                         ${desc}
                     </div>
@@ -500,18 +587,6 @@ function displayNote(id){
                 </div>
                 `);
         }
-    }
-
-    var notify = (text, delay = 0.1, timeout = 5) => {
-        var showNotification = () =>{
-            $(".notification-log").html(`<span>${text}</span>`);
-            setTimeout(function() {
-                $(".notification-log").empty();
-            }, timeout * 1000);
-        }
-        
-        setTimeout(showNotification, delay * 1000);
-
     }
 
 
