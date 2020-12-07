@@ -7,6 +7,7 @@ It is absolutely free to use by anyone but it is not publicly distributed yet. I
 
 ### Here are the current features of the app
 * Create, view, update and delete notes
+* Recover deleted notes or delete permanently (Bin)
 * Install as mobile and desktop as a progressive web app
 * Create an account seamlessly in a matter of seconds by simply linking your google account (optional).
 * After initial install, internet is not required for subsequent usage.
@@ -14,9 +15,8 @@ It is absolutely free to use by anyone but it is not publicly distributed yet. I
 
 ### And some cool features on the way
 * Auto generated note sharing link
-* Recycle bin
 * Draggable notes
-* Themes
+* Themes and a more intuitive UI
 * Reminders
 * Collaboration
 * Etc... (NB: not in any particular order)
