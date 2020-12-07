@@ -84,7 +84,7 @@ body{
 }
 
 .navMenu{
-    background-image: linear-gradient(to right, #202020, #111);
+    background-image: linear-gradient(to right, #151515, #101010);
     width: 300px;
     position: fixed;
     left: 0;
