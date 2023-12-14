@@ -11,10 +11,10 @@ It is absolutely free to use by anyone but it is not publicly distributed yet. I
 * Create an account seamlessly in a matter of seconds by simply linking your google account (optional).
 * After initial install, internet is not required for subsequent usage.
 * Synchronizes your data across your devices provided you've created account.
+* Recycle bin
 
 ### And some cool features on the way
 * Auto generated note sharing link
-* Recycle bin
 * Draggable notes
 * Themes
 * Reminders
